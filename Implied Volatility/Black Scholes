@@ -1,5 +1,8 @@
 #A simple implementation of Black Scholes, determining the price of an option for a given volatility, v. I use this to check implementations of the other techniques. 
 
+import numpy as np
+import scipy.stats as sp
+
 call = 1 #it is a call
 put = -1 #it is a put
 r = #interest rate
