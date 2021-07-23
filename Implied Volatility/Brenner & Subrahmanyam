@@ -1,5 +1,6 @@
 #A very simple implementation of the method discussed by Brenner & Subramanyam, a simplistic approach to determine I.V. 
 
+
 def bren_sub(T,p,S_0):
     v = np.sqrt(2*np.pi/T)*p/S_0
     return v
