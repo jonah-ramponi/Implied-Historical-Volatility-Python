@@ -1,5 +1,8 @@
 #Implementation of Newton's Method to calculate implied volatility iteratively. 
 
+import numpy as np
+import scipy.stats as sp
+
 call = 1 #it is a call
 put = -1 #it is a put
 r =  #interest rate
