@@ -1,1 +1,62 @@
+#This will calculate the implied volatility using Brent's method, a combination of a few different iterative techniques. 
+
+import numpy as np
+import scipy.stats as sp
+
+r = #interest rate
+T = #time to maturity, an integer, # of days
+S_0 = #initial stock price
+K = #strike price
+true_p = #True Price (market price for the option). 
+lowerb = #the lower bound of volatility, e.g. 0.00001
+upperb = #upper bound of volatility, e.g. 1000
+
+def brents_method(f, a, b):
+    
+    if abs(f(a)) < abs(f(b)):
+        a, b = b, a
+        
+    c = a
+    flag = True
+    
+    while abs(b-a) > 0.001:
+        fa = f(a)
+        fb = f(b)
+        fc = f(c)
+        
+        if fa != fc and fb != fc:
+            s = (a * fb * fc) / ((fa - fb) * (fa - fc)) + (b * fa * fc) / ((fb - fa) * (fb - fc)) + (c * fb * fa) / ((fc - fa) * (fc - fb))
+
+        else:
+            s = b - ( (fb * (b - a)) / (fb - fa) )
+        
+        upper = max((3*a+b)/4,b)
+        lower = min((3*a+b)/4,b)
+        
+        if (s < lower or s > upper) or (flag == True and abs(s-b) >= abs(b-c)/2) or (flag == False and abs(s-b) >= abs(c-d)/2):
+            s = (a+b)/2
+            flag = True
+        else:
+            flag = False
+        
+        fs = f(s)
+        d,c = c,b
+        
+        if (fa * fs) < 0:
+            b = s
+        else:
+            a = s
+        if abs(fa) < abs(fb):
+            a, b = b, a
+            
+
+    return s
+
+
+def get_price(v):
+    d1 = (np.log(S_0/K)+(r+0.5*v**2)*T)/(v*np.sqrt(T))
+    d2 = d1 - v*np.sqrt(T)
+    return sp.norm().cdf(d1)*S_0 - sp.norm().cdf(d2)*K*np.exp(-r*T) - true_p 
+
+print(brents_method(get_price,lowerb,upperb))
 
