@@ -1,9 +1,6 @@
 #A simple python implementation of the techniques discussed in P. Jaeckel's paper, Impled Normal Volatility, found here: http://www.jaeckel.org/.
 
 
-
-
-
 F= #current price, S_0
 T= #time in days till expiry, written as days/365.
 K= #strike price
@@ -46,7 +43,10 @@ q = get_q(x_bar,F,K,T,sig,theta)
 
 x_star = x_bar + (3*q*x_bar**2*(2-q*x_bar*(2*x_bar**2)))/(6 + q*x_bar*(-12 + x_bar*(-6 + q*x_bar*(3*x_bar**2))))#Equation (2.6)
 
-##Equation (1.5)
 
+##Equation (1.5)
 imp_vol = -theta*(np.abs(K-F)/(x_bar*np.sqrt(T)))
+
+
+
 print(imp_vol)
