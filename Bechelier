@@ -1,0 +1,47 @@
+
+F= #current price, S_0
+T= #time in days till expiry, written as days/365.
+K= #strike price
+sig= #volatility
+theta = 1 #1 for call, -1 for put
+
+
+#Equation (1.1)
+def get_vega(F,K,T,sig,theta):
+    vega = sig*np.sqrt(T)*sp.norm.pdf((F-K)/(sig*np.sqrt(T))) + theta*(F-K)*sp.norm.cdf(theta* (F-K)/(sig*np.sqrt(T)))
+    return vega 
+
+#Equation (1.2)
+def get_phi_squiggle(x):
+    phi_squiggle = sp.norm.cdf(x) + sp.norm.pdf(x)/x
+    return phi_squiggle
+
+#Equation (1.6)
+def get_phi_star (F,K,T,sig,theta):
+    vega = get_vega(F,K,T,sig,theta)
+    phi_star = -np.abs(vega - max(0,theta*(F-K)))/(np.abs(K-F))
+    return phi_star
+
+#Section 2
+phi_squiggle_star = get_phi_star(F,K,T,sig,theta)
+
+if phi_squiggle_star < get_phi_squiggle(9/4):
+    g = 1/(phi_squiggle_star - 0.5) #Equation (2.1)
+    epsilon_bar = (0.032114372355 - g**2*(0.016969777977 - g**2*(0.0026207332461-(0.000096066952861)*g**2)))/(1-g**2*(0.6635646938 - g**2*(0.14528712196 - 0.010472855461*g**2))) #Equation (2.2)
+    x_bar = g*(1/(np.sqrt(2*np.pi)) +epsilon_bar *g**2 ) #Equation (2.3)
+else:
+    h = np.sqrt(-np.log(-phi_squiggle_star)) #Equation (2.4)
+    x_bar = (9.4883409779 - h*(9.6320903635 - h*(0.5856997323 + 2.1464093351*h)))/(1 - h*(0.65174820867 - h**2*(1.5120247828 + 0.000066437847132*h))) #Equation (2.5)
+
+def get_q (x_bar,F,K,T,sig,theta):
+    q = (get_phi_squiggle(x_bar) - phi_squiggle_star)/sp.norm.pdf(x_bar) #Equation (2.7)
+    return q 
+
+q = get_q(x_bar,F,K,T,sig,theta)
+
+x_star = x_bar + (3*q*x_bar**2*(2-q*x_bar*(2*x_bar**2)))/(6 + q*x_bar*(-12 + x_bar*(-6 + q*x_bar*(3*x_bar**2))))#Equation (2.6)
+
+##Equation (1.5)
+
+imp_vol = -theta*(np.abs(K-F)/(x_bar*np.sqrt(T)))
+print(imp_vol)
