@@ -1,3 +1,5 @@
+#A basic approach that calculates the implied volatility iteratively using Newton's Method. 
+
 call = 1 #it is a call
 put = -1 #it is a put
 r =  #interest rate
