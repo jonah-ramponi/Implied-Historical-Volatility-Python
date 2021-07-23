@@ -1,5 +1,7 @@
 #A simple python implementation of the techniques discussed in P. Jaeckel's paper, Impled Normal Volatility, found here: http://www.jaeckel.org/.
 
+import numpy as np
+import scipy.stats as sp
 
 F= #current price, S_0
 T= #time in days till expiry, written as days/365.
