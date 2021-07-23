@@ -7,7 +7,7 @@ r = #interest rate
 T = #time to maturity, an integer, # of days
 S_0 = #initial stock price
 K = #strike price
-true_p = #True Price (market price for the option). 
+p = #True Price (market price for the option). 
 lowerb = #the lower bound of volatility, e.g. 0.00001
 upperb = #upper bound of volatility, e.g. 1000
 
@@ -56,7 +56,7 @@ def brents_method(f, a, b):
 def get_price(v):
     d1 = (np.log(S_0/K)+(r+0.5*v**2)*T)/(v*np.sqrt(T))
     d2 = d1 - v*np.sqrt(T)
-    return sp.norm().cdf(d1)*S_0 - sp.norm().cdf(d2)*K*np.exp(-r*T) - true_p 
+    return sp.norm().cdf(d1)*S_0 - sp.norm().cdf(d2)*K*np.exp(-r*T) - p 
 
 print(brents_method(get_price,lowerb,upperb))
 
