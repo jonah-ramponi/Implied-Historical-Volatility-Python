@@ -1,5 +1,4 @@
-#A simple implementation of Black Scholes, determining the price of an option for a given volatility, v. I use this to check implementations
-#of the other techniques. 
+#A simple implementation of Black Scholes, determining the price of an option for a given volatility, v. I use this to check implementations of the other techniques. 
 
 call = 1 #it is a call
 put = -1 #it is a put
