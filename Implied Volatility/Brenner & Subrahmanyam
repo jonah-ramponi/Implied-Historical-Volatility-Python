@@ -2,6 +2,10 @@
 
 import numpy as np
 
+p = #market price for the option
+T = #number of days till expiry
+S_0 = #initial price
+
 def bren_sub(T,p,S_0):
     v = np.sqrt(2*np.pi/T)*p/S_0
     return v
