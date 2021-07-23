@@ -1,0 +1,22 @@
+call = 1 #it is a call
+put = -1 #it is a put
+r =  #interest rate
+T =  #time to maturity
+p =  #price of option
+S_0 =  #initial stock price
+K =  #strike price
+
+
+##Newton
+def newton(type, p, S_0, K, T, r):
+    v = np.sqrt(2*np.pi/T)*p/S_0
+    price0 = p + 1
+    while abs(price0 - p) > 1e-10 : 
+        d1 = (np.log(S_0/K)+(r+0.5*v**2)*T)/(v*np.sqrt(T))
+        d2 = d1 - v*np.sqrt(T)
+        vega = sp.norm().pdf(d1)*S_0*np.sqrt(T)
+        price0 = type*S_0*sp.norm().cdf(type*d1) - type*K*np.exp(-r*T)*sp.norm().cdf(type*d2)
+        v = v - (price0 - p)/vega
+    return v 
+        
+v = newton(call, p,S_0, K, T, r)
