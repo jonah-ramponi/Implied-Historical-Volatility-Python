@@ -1,4 +1,4 @@
-#A basic approach that calculates the implied volatility iteratively using Newton's Method. 
+#Implementation of Newton's Method to calculate implied volatility iteratively. 
 
 call = 1 #it is a call
 put = -1 #it is a put
@@ -8,8 +8,6 @@ p =  #price of option
 S_0 =  #initial stock price
 K =  #strike price
 
-
-##Newton
 def newton(type, p, S_0, K, T, r):
     v = np.sqrt(2*np.pi/T)*p/S_0
     price0 = p + 1
