@@ -1,0 +1,3 @@
+#This is just a few files used to calculate things related to volatility in Python. Firstly, techniques to find the implied volatility. Implementing
+#BS, Bren & Sub, Newton R., Brent's Method, Iterative Bisection. Then a look at historical volatility, first calculating historical volatility
+#then looking at techniques we can use to predict future volatility from this historical data.
