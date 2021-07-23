@@ -1,12 +1,15 @@
+#A simple implementation of Black Scholes, determining the price of an option for a given volatility, v. I use this to check implementations
+#of the other techniques. 
+
 call = 1 #it is a call
 put = -1 #it is a put
 r = #interest rate
 T = #time to maturity
-p = #price of option
+v = #volatility
 S_0 = #initial stock price
 K = #strike price
 
-#price a call using black scholes and calculated volatility from newton(). Verifies the volatility is giving the correct price. 
+
 def blackScholes(type,S_0,K,T,r,v):
     d1 = (np.log(S_0/K)+(r+0.5*v**2)*T)/(v*np.sqrt(T))
     d2 = d1 - v*np.sqrt(T)
@@ -15,9 +18,3 @@ def blackScholes(type,S_0,K,T,r,v):
 
 p = blackScholes(type,S_0,K,T,r,v)
 
-##Brenner and Subrahmanyam method of computing voltatilty
-def bren_sub(T,p,S_0):
-    v = np.sqrt(2*np.pi/T)*p/S_0
-    return v
-
-b_s = bren_sub(T,p,S_0)
